@@ -11,9 +11,9 @@ class User
     public function register()
     {
         $conn = dbConn::dbConnection();
-
         $sqlQuery = "insert into users (firstname, lastname, email, password) values (:firstname, :lastname, :email, :password)";
         $statement = $conn->prepare($sqlQuery);
+
         $firstname = $this->getFirstname();
         $lastname = $this->getLastname();
         $email = $this->getEmail();
@@ -35,9 +35,31 @@ class User
         $options = [
             'cost' => 12,
         ];
-        $this->password = password_hash($_POST[$password], PASSWORD_DEFAULT, $options);
+        $this->password = password_hash($password, PASSWORD_DEFAULT, $options);
 
         return $this;
+    }
+
+    public function canLogin()
+    {
+        $conn = dbConn::dbConnection();
+        $sqlQuery = "select * from users where (email) = (:email)";
+        $statement = $conn->prepare($sqlQuery);
+
+        $email = $this->getEmail();
+        $statement->bindValue(":email", $email);
+        $statement->execute();
+        $result = $statement->fetch();
+
+        $password = $this->getPassword();
+        $Hash = $result['password'];
+
+        if (password_verify($password, $Hash)) {
+            return true;
+        } else {
+            throw new Exception("password is not correct!");
+            return false;
+        }
     }
 
     /**

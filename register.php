@@ -14,7 +14,7 @@ if (!empty($_POST)) {
 
         session_start();
         $_SESSION['email'] = $_POST['email'];
-        header("location: index.php");
+        header("Location: index.php");
     } catch (\Throwable $th) {
         $error = $th->getMessage();
     }

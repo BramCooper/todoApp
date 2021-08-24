@@ -1,23 +1,18 @@
 <?php
-function canLogin($email, $password)
-{
-    if ($email === "j@a" && $password === "12345") {
-        return true;
-    } else {
-        return false;
-    }
-}
+include_once(__DIR__ . "/classes/User.php");
 
 if (!empty($_POST)) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    if (canLogin($email, $password)) {
-        session_start();
-        $_SESSION["email"] = $email;
-        header("Location: index.php");
-    } else {
-        $error = true;
+    try {
+        $user = new User();
+        $user->setEmail($_POST['email']);
+        $user->setPassword($_POST['password']);
+        if ($user->canLogin()) {
+            session_start();
+            $_SESSION['email'] = $_POST['email'];
+            header("Location: index.php");
+        }
+    } catch (\Throwable $th) {
+        $error = $th->getMessage();
     }
 }
 
@@ -54,6 +49,9 @@ if (!empty($_POST)) {
     <div class="error">
         <p style="color:red; text-align:center">Incorrect email or password </p>
     </div>
+    <?php if (isset($error)) : ?>
+        <div class="error" style="color: red"><?php echo $error; ?></div>
+    <?php endif; ?>
 
 
 </body>
