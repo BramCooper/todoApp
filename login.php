@@ -38,7 +38,6 @@ if (!empty($_POST)) {
 </head>
 
 <body>
-    <img class="logoImg" src="./img/BorrowBoxFinalLogo.png" alt="BorrowBoxLogo">
 
     <div class="d-flex justify-content-center mt-3">
         <h3 class="text-uppercase">Log in</h3>

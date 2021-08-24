@@ -1,6 +1,27 @@
 <?php
-var_dump($_POST);
+
+
+if (!empty($_POST)) {
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $email = $_POST['email'];
+    $options = [
+        'cost' => 12,
+    ];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT, $options);
+
+    $conn = new PDO('mysql:host=localhost;dbname=todo_db', "root", "root");
+    $query = $conn->prepare("insert into users (firstname, lastname, email, password) values (:firstname, :lastname, :email, :password)");
+    $query->bindValue(":firstname", $firstname);
+    $query->bindValue(":lastname", $lastname);
+    $query->bindValue(":email", $email);
+    $query->bindValue(":password", $password);
+    $query->execute();
+}
+
+
 ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -17,8 +38,6 @@ var_dump($_POST);
 
 <body>
 
-    <img class="logoImg" src="./img/BorrowBoxFinalLogo.png" alt="BorrowBoxLogo">
-
     <a class="d-flex justify-content-center btn btnCustom m-5" href="login.php">log in with existing account</a>
     <h3 class="display-6 d-flex justify-content-center">or make a new account</h3>
 
@@ -29,10 +48,6 @@ var_dump($_POST);
         <div class="col d-flex justify-content-center m-3"><input class="form-control" type="password" name="password" placeholder="password"></div>
         <div class="col d-flex justify-content-center m-3"><input type="submit" class="btn btnCustom" value="create account"></div>
     </form>
-
-    <?php if (isset($error)) : ?>
-        <div class="error"><?php echo $error ?></div>
-    <?php endif; ?>
 
 </body>
 
