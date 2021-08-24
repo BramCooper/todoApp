@@ -15,6 +15,7 @@ if (!empty($_POST)) {
     if (canLogin($email, $password)) {
         session_start();
         $_SESSION["email"] = $email;
+        header("Location: index.php");
     } else {
         $error = true;
     }

@@ -1,10 +1,13 @@
 <?php
 session_start();
 if (isset($_SESSION['email'])) {
+    //user is logged in
     echo "Welcome " . $_SESSION['email'];
 } else {
-    echo "Not logged in";
+    //not logged in
+    header("Location: login.php");
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -22,6 +25,7 @@ if (isset($_SESSION['email'])) {
 </head>
 
 <body>
+    <h1>Here is your To Do list!</h1>
     <a href="logout.php" class="btn btnCustom">Log out</a>
 </body>
 
