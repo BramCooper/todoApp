@@ -20,7 +20,6 @@ if (!empty($_POST)) {
     }
 }
 
-
 ?>
 
 <!doctype html>
