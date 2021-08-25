@@ -1,14 +1,18 @@
 <?php
 include_once(__DIR__ . "/classes/User.php");
+include_once(__DIR__ . "/classes/Db.php");
 
 if (!empty($_POST)) {
+
+    $user = new User();
+    $user->setEmail($_POST['email']);
+    $user->setPassword($_POST['password']);
+
     try {
-        $user = new User();
-        $user->setEmail($_POST['email']);
-        $user->setPassword($_POST['password']);
         if ($user->canLogin()) {
             session_start();
             $_SESSION['email'] = $_POST['email'];
+            $_SESSION['id'] = $user->getId();
             header("Location: index.php");
         }
     } catch (\Throwable $th) {
@@ -39,7 +43,7 @@ if (!empty($_POST)) {
     </div>
 
     <div class="row justify-content-center align-items-center">
-        <form action="" method="post" class="loginForm">
+        <form action="" method="POST" class="loginForm">
             <div class="col d-flex justify-content-center m-2"><input class="form-control" type="email" placeholder="email" name="email"></div>
             <div class="col d-flex justify-content-center m-2"><input class="form-control" type="password" placeholder="password" name="password"></div>
             <div class="col d-flex justify-content-center m-3"><input class="btn btnCustom" type="submit" name="login" value="login"></div>

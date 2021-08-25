@@ -44,7 +44,7 @@ class User
     public function canLogin()
     {
         $conn = dbConn::dbConnection();
-        $sqlQuery = "select * from users where (email) = (:email)";
+        $sqlQuery = "select * from users where email = :email";
         $statement = $conn->prepare($sqlQuery);
 
         $email = $this->getEmail();
@@ -56,6 +56,7 @@ class User
         $Hash = $result['password'];
 
         if (password_verify($password, $Hash)) {
+            $this->setId($result["id"]);
             return true;
         } else {
             throw new Exception("password is not correct!");

@@ -1,11 +1,32 @@
 <?php
+include_once(__DIR__ . "/classes/List.php");
+include_once(__DIR__ . "/classes/Db.php");
+
 session_start();
+
 if (isset($_SESSION['email'])) {
     //user is logged in
     echo "Welcome " . $_SESSION['email'];
 } else {
     //not logged in
     header("Location: login.php");
+}
+
+var_dump($_SESSION['id']);
+
+if (!empty($_POST)) {
+    $listItem = new listClass();
+    $listItem->setName($_POST['listTitle']);
+    $listItem->setUser_id($_SESSION['id']);
+    $listItem->listSave();
+}
+
+$listItem = new listClass();
+
+try {
+    $listAll = $listItem->getAllLists();
+} catch (Throwable $th) {
+    $error = $th->getMessage();
 }
 
 ?>
@@ -26,6 +47,24 @@ if (isset($_SESSION['email'])) {
 
 <body>
     <h1>Here is your To Do list!</h1>
+    <div>
+        <form action="" method="POST">
+            <input type="name" name="listTitle" placeholder="make a new list">
+            <button class="btnCustom">Add</button>
+        </form>
+    </div>
+    <?php foreach ($listAll as $listItem) : ?>
+        <div>
+            <a href="#">
+                <div>
+                    <h3><?php echo $listItem['name'] ?></h3>
+                    <button class="btnCustom">Delete</button>
+                </div>
+            </a>
+        </div>
+    <?php endforeach; ?>
+
+
     <a href="logout.php" class="btn btnCustom">Log out</a>
 </body>
 

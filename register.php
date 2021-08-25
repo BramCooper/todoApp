@@ -1,5 +1,6 @@
 <?php
 include_once(__DIR__ . "/classes/User.php");
+include_once(__DIR__ . "/classes/Db.php");
 
 if (!empty($_POST)) {
     try {
@@ -14,6 +15,7 @@ if (!empty($_POST)) {
 
         session_start();
         $_SESSION['email'] = $_POST['email'];
+        $_SESSION['id'] = $user->getId();
         header("Location: index.php");
     } catch (\Throwable $th) {
         $error = $th->getMessage();
@@ -41,7 +43,7 @@ if (!empty($_POST)) {
     <a class="d-flex justify-content-center btn btnCustom m-5" href="login.php">log in with existing account</a>
     <h3 class="display-6 d-flex justify-content-center">or make a new account</h3>
 
-    <form class="col justify-content-center" action="" method="post" enctype="multipart/form-data">
+    <form class="col justify-content-center" action="" method="POST">
         <div class="col d-flex justify-content-center m-3"><input class="form-control" type="text" name="firstname" placeholder="firstname"></div>
         <div class="col d-flex justify-content-center m-3"><input class="form-control" type="text" name="lastname" placeholder="lastname"></div>
         <div class="col d-flex justify-content-center m-3"><input class="form-control" type="email" name="email" placeholder="email"></div>
