@@ -4,3 +4,23 @@
     font-weight: bold;
     text-align: center;
 }
+.spacingBody{
+    margin-left: 1em;
+}
+.btnDel{
+    background-color: rgb(195, 29, 23);
+    color: whitesmoke;
+    font-weight: bold;
+    text-align: center;
+}
+.btnLogout{
+    background-color: rgb(146, 146, 146);
+    color: whitesmoke;
+    font-weight: bold;
+    text-align: center;
+}
+
+h3{
+    text-decoration: underline;
+    color: black;
+}

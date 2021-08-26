@@ -48,11 +48,9 @@ if (!empty($_POST)) {
             <div class="col d-flex justify-content-center m-2"><input class="form-control" type="password" placeholder="password" name="password"></div>
             <div class="col d-flex justify-content-center m-3"><input class="btn btnCustom" type="submit" name="login" value="login"></div>
         </form>
+        <div class="pl-0 m-3 d-flex justify-content-center"><a class="btn btnCustom" href="register.php">or create a new account</a></div>
     </div>
 
-    <div class="error">
-        <p style="color:red; text-align:center">Incorrect email or password </p>
-    </div>
     <?php if (isset($error)) : ?>
         <div class="error" style="color: red"><?php echo $error; ?></div>
     <?php endif; ?>

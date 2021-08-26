@@ -40,7 +40,7 @@ if (!empty($_POST)) {
 
 <body>
 
-    <a class="d-flex justify-content-center btn btnCustom m-5" href="login.php">log in with existing account</a>
+    <div class="pl-0 m-3 d-flex justify-content-center"><a class="btn btnCustom" href="login.php">log in with existing account</a></div>
     <h3 class="display-6 d-flex justify-content-center">or make a new account</h3>
 
     <form class="col justify-content-center" action="" method="POST">
