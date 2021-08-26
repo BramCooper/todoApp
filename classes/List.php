@@ -34,6 +34,19 @@ class listClass
         return $statement->fetchAll();
     }
 
+    public function delete()
+    {
+        $conn = dbConn::dbConnection();
+        $sqlQuery = "delete from lists where id = :id";
+        $statement = $conn->prepare($sqlQuery);
+        $id = $this->getId();
+        $statement->bindValue(":id", $id);
+        $statement->execute();
+
+        return $this;
+    }
+
+
     /**
      * Get the value of name
      */

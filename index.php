@@ -1,6 +1,6 @@
 <?php
-include_once(__DIR__ . "/classes/List.php");
 include_once(__DIR__ . "/classes/Db.php");
+include_once(__DIR__ . "/classes/List.php");
 
 session_start();
 
@@ -11,8 +11,6 @@ if (isset($_SESSION['email'])) {
     //not logged in
     header("Location: login.php");
 }
-
-var_dump($_SESSION['id']);
 
 if (!empty($_POST)) {
     $listItem = new listClass();
@@ -53,19 +51,25 @@ try {
             <button class="btnCustom">Add</button>
         </form>
     </div>
-    <?php foreach ($listAll as $listItem) : ?>
-        <div>
+
+    <?php foreach ($listAll as $li) : ?>
+        <div id="divList">
             <a href="#">
                 <div>
-                    <h3><?php echo $listItem['name'] ?></h3>
-                    <button class="btnCustom">Delete</button>
+                    <h3><?php echo $li['name'] ?></h3>
                 </div>
             </a>
+
+            <form action="" method="POST">
+                <input id="delete" class="btn btnCustom" type="submit" data-listid="<?php echo $li['id'] ?>" value="Delete" name="delete">
+            </form>
         </div>
+
     <?php endforeach; ?>
 
-
     <a href="logout.php" class="btn btnCustom">Log out</a>
+
+    <script src="./scripts/list.js"></script>
 </body>
 
 </html>
