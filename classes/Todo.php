@@ -38,6 +38,18 @@ class Todo
         return $statement->execute();
     }
 
+    public function getAllTodos($list_id)
+    {
+        $conn = dbConn::dbConnection();
+        $sqlQuery = "select * from todo where list_id = :list_id";
+        $statement = $conn->prepare($sqlQuery);
+        $statement->bindValue(":list_id", $list_id);
+        $statement->execute();
+        $result = $statement->fetchAll();
+
+        return $result;
+    }
+
     /**
      * Get the value of id
      */

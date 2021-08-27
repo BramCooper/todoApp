@@ -7,7 +7,6 @@ session_start();
 
 if (isset($_SESSION['email'])) {
     //user is logged in
-    echo "Welcome " . $_SESSION['email'];
 } else {
     //not logged in
     header("Location: login.php");
@@ -49,22 +48,22 @@ try {
     <title>Add a Todo</title>
 </head>
 
-<body>
-    <h3>Create a new todo:</h3>
+<body class="spacingBody">
+    <h3 class="mb-3">Create a new todo:</h3>
     <form action="" method="POST">
-        <div>
+        <div class="mb-3">
             <input id="todoName" type="name" placeholder="Name the todo" name="todoName">
         </div>
-        <div>
+        <div class="mb-3">
             <input id="todoDesc" type="text" placeholder="Describe the todo" name="todoDesc">
         </div>
-        <div>
+        <div class="mb-3">
             <input id="todoDur" type="number" placeholder="how long will it take" name="todoDur">
         </div>
-        <div>
+        <div class="mb-3">
             <input id="todoDead" type="date" placeholder="Pick a deadline" name="todoDead">
         </div>
-        <div>
+        <div class="mb-3">
             <h3>Select a list</h3>
             <select name="listDropdown" id="listDropdown">
                 <?php foreach ($listAll as $li) : ?>

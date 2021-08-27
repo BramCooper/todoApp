@@ -2,6 +2,24 @@
 include_once(__DIR__ . "/classes/Db.php");
 include_once(__DIR__ . "/classes/List.php");
 include_once(__DIR__ . "/classes/Todo.php");
+
+session_start();
+
+if (isset($_SESSION['email'])) {
+    //user is logged in
+    echo "Welcome " . $_SESSION['email'];
+} else {
+    //not logged in
+    header("Location: login.php");
+}
+
+if (!empty($_GET)) {
+    $listItem = new listClass();
+    $listItem->setId($_GET['list']);
+    $list_id = $listItem->getId();
+    $todo = new Todo();
+    $todos = $todo->getAllTodos($list_id);
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +37,29 @@ include_once(__DIR__ . "/classes/Todo.php");
 </head>
 
 <body>
+    <header class="mb-3">
+        <a href="logout.php" class="btn btnLogout">Log out</a>
+    </header>
+    <h1>Todo list: <?php echo $listItem['name'] ?></h1>
 
+    <a href="#" onclick="window.location.href='addTodo.php';">
+        <div>
+            <h3>add a new todo</h3>
+        </div>
+    </a>
+
+    <?php foreach ($todos as $to) : ?>
+        <div id="divTodo">
+            <div>
+                <h3><?php echo $to['name'] ?></h3>
+            </div>
+            </a>
+
+            <form action="" method="POST">
+                <input id="delete" class="btn btnDel" type="submit" data-listid="<?php echo $to['id'] ?>" value="Delete" name="delete">
+            </form>
+        </div>
+    <?php endforeach; ?>
 </body>
 
 </html>
